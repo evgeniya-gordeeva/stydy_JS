@@ -45,10 +45,12 @@ function getExpensesMonth() {
         if(i===1) {
             requiredExpenses02Label = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Например, питание');
         }
-        let tempNum = +prompt('Во сколько это обойдется?', 9500);
-        if (!isNaN(tempNum) && tempNum != '' && tempNum != null) {
-            sum = sum + tempNum;
+        let tempNum;
+        while(isNaN(tempNum) || tempNum === '' || tempNum === null || tempNum === 0) {
+            tempNum = +prompt('Во сколько это обойдется?', 9500);
         }
+        sum = sum + tempNum;
+
     }
     return sum;
 }
