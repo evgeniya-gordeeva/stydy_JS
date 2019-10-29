@@ -84,3 +84,12 @@ console.log('Расходы за месяц: ' + appData.getExpensesMonth());
 console.log('Cрок достижения цели в месяцах: ', Math.ceil(appData.getTargetMonth()));
 
 console.log('Уровень дохода: ' + appData.getStatusIncome());
+
+/*
+* 10) Используя цикл for in для объекта (appData), вывести в консоль сообщение "Наша программа включает в себя данные: " (вывести весь appData)
+* */
+
+console.log('=============\nНаша программа включает в себя данные\n=============');
+for (let key in appData)  {
+    console.log(key);
+}
