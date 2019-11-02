@@ -5,13 +5,6 @@ let button = document.getElementById('start');
 console.log(button);
 
 //Получить кнопки “+” (плюс) через Tag, каждую в своей переменной.
-/*
-for (let i = 0; i < document.getElementsByTagName('button').length; i++) {
-    if(document.getElementsByTagName('button')[i].className.indexOf('btn_plus')!=-1) {
-        console.log(document.getElementsByTagName('button')[i]);
-    }
-}
-*/
 //уточнение из дискорда: просто первые 2 тега button записать в переменные
 let tagPlus1 = document.getElementsByTagName('button')[0];
 console.log(tagPlus1);
