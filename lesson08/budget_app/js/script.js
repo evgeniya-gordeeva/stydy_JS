@@ -61,16 +61,20 @@ let appData = {
         cancelBtn.style.display = 'block';
     },
     addExpensesBlock: function () {
-      let cloneExpensesItem = expensesItems[0].cloneNode(true);
-      expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
-      expensesItems = document.querySelectorAll('.expenses-items');
-      if(expensesItems.length === 3) {
-          expensesPlus.style.display = 'none';
-          return;
-      }
+        let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        cloneExpensesItem.getElementsByClassName('expenses-title')[0].value = '';
+        cloneExpensesItem.getElementsByClassName('expenses-amount')[0].value = '';
+        expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
+        expensesItems = document.querySelectorAll('.expenses-items');
+        if(expensesItems.length === 3) {
+            expensesPlus.style.display = 'none';
+            return;
+        }
     },
     addIncomeBlock: function () {
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        cloneIncomeItem.getElementsByClassName('income-title')[0].value = '';
+        cloneIncomeItem.getElementsByClassName('income-amount')[0].value = '';
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
         incomeItems = document.querySelectorAll('.income-items');
         if(incomeItems.length === 3) {
@@ -200,6 +204,18 @@ expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
 
 periodSelect.addEventListener('change', appData.changeRange);
+
+for(let i = 0; i< document.querySelectorAll('[placeholder="Наименование"]').length; i++) {
+    document.querySelectorAll('[placeholder="Наименование"]')[i].addEventListener('keyup', function () {
+        this.value = this.value.replace(/[^А-Яа-яЁё\s,.!?;:()]/g, '');
+    });
+}
+
+for(let i = 0; i< document.querySelectorAll('[placeholder="Сумма"]').length; i++) {
+    document.querySelectorAll('[placeholder="Сумма"]')[i].addEventListener('keyup', function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+}
 
 
 //console.log('Расходы за месяц: ' + appData.getExpensesMonth());
