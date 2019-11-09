@@ -66,6 +66,7 @@ let appData = {
         cloneExpensesItem.getElementsByClassName('expenses-amount')[0].value = '';
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
         expensesItems = document.querySelectorAll('.expenses-items');
+        //console.log(expensesItems);
         if(expensesItems.length === 3) {
             expensesPlus.style.display = 'none';
             return;
@@ -77,6 +78,7 @@ let appData = {
         cloneIncomeItem.getElementsByClassName('income-amount')[0].value = '';
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
         incomeItems = document.querySelectorAll('.income-items');
+        //console.log(incomeItems);
         if(incomeItems.length === 3) {
             incomePlus.style.display = 'none';
             return;
@@ -91,6 +93,8 @@ let appData = {
                 appData.expenses[itemExpenses] = cashExpenses;
             }
         });
+
+        //console.log(appData.expenses);
     },
     getIncome: function () {
         incomeItems.forEach(function (item) {
@@ -105,8 +109,10 @@ let appData = {
         //appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
         for (let key in appData.income) {
-            appData.incomeMonth += +appData.income[key];
+            appData.income += +appData.income[key];
         }
+
+        //console.log(appData.income);
     },
     showResult: function () {
         budgetMonthValue.value = appData.budgetMonth;
@@ -115,6 +121,7 @@ let appData = {
         additionalExpensesValue.value = appData.addExpenses.join(', ');
         additionalIncomeValue.value = appData.addIncome.join(', ');
         targetMonthValue.value = Math.ceil(appData.getTargetMonth());
+        incomePeriodValue.value = appData.calcSaveMoney();
 
         periodSelect.addEventListener('change', function () {
             incomePeriodValue.value = appData.calcSaveMoney();
@@ -135,7 +142,9 @@ let appData = {
             if(itemValue !== '') {
                 appData.addIncome.push(itemValue);
             }
-        })
+        });
+
+        //console.log(additionalIncomeItems);
     },
     getExpensesMonth: function () {
         let sum = 0;
@@ -145,11 +154,15 @@ let appData = {
         }
 
         appData.expensesMonth = sum;
+        //console.log(appData.expensesMonth);
+
         return sum;
     },
     getBudget: function () {
         appData.budgetMonth = appData.budget + appData.incomeMonth - appData.getExpensesMonth();
         appData.budgetDay = Math.round(appData.budgetMonth / 30);
+
+        //console.log(appData.budgetMonth);
     },
     getTargetMonth: function () {
         return (targetAmount.value/appData.budgetMonth);
