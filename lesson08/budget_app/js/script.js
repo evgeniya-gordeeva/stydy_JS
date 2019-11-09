@@ -109,7 +109,7 @@ let appData = {
         //appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
         for (let key in appData.income) {
-            appData.income += +appData.income[key];
+            appData.incomeMonth += +appData.income[key];
         }
 
         //console.log(appData.income);
@@ -229,11 +229,6 @@ for(let i = 0; i< document.querySelectorAll('[placeholder="Сумма"]').length
         this.value = this.value.replace(/[^0-9\.]/g, '');
     });
 }
-
-
-//console.log('Расходы за месяц: ' + appData.getExpensesMonth());
-
-//console.log('Cрок достижения цели в месяцах: ', Math.ceil(appData.getTargetMonth()));
 
 //console.log('Уровень дохода: ' + appData.getStatusIncome());
 
