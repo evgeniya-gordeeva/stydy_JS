@@ -22,6 +22,7 @@ let start = document.getElementById('start'),
     expensesItems = document.querySelectorAll('.expenses-items'),
     additionalExpenses = document.querySelector('.additional_expenses'),
     periodSelect = document.querySelector('.period-select'),
+    periodAmount = document.querySelector('.period-amount'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount');
 
@@ -39,14 +40,14 @@ let appData = {
     percentDeposit: 0,
     moneyDeposit: 0,
     start: function () {
-        appData.budget = +salaryAmount.value;
-        appData.getExpenses();
-        appData.getIncome();
-        appData.getAddExpenses();
-        appData.getAddIncome();
+        this.budget = +salaryAmount.value;
+        this.getExpenses();
+        this.getIncome();
+        this.getAddExpenses();
+        this.getAddIncome();
 
-        appData.getBudget();
-        appData.showResult();
+        this.getBudget();
+        this.showResult();
 
         start.style.display = 'none';
         for(let i=0; i< document.querySelectorAll('.data input[type="text"]').length; i++) {
@@ -112,7 +113,7 @@ let appData = {
         incomePeriodValue.value = this.calcSaveMoney();
 
         periodSelect.addEventListener('change', function () {
-            incomePeriodValue.value = this.calcSaveMoney();
+            incomePeriodValue.value = appData.calcSaveMoney();
         });
     },
     getAddExpenses: function () {
@@ -180,13 +181,14 @@ let appData = {
         return this.budgetMonth * periodSelect.value;
     },
     changeRange: function () {
-        document.querySelector('.period-amount').textContent = periodSelect.value;
+        periodAmount.textContent = periodSelect.value;
     },
     reset: function () {
         document.querySelectorAll('input').forEach(function (item) {
             item.value = '';
         });
         periodSelect.value = 1;
+        periodAmount.textContent = '1';
 
         document.querySelectorAll('.income-items').forEach(function (item, index) {
             if(index > 0) {
@@ -219,7 +221,9 @@ salaryAmount.addEventListener('change', function () {
     }
 });
 
-start.addEventListener('click', appData.start);
+let addDataStartBind = appData.start.bind(appData);
+
+start.addEventListener('click', addDataStartBind);
 cancelBtn.addEventListener('click', appData.reset);
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
