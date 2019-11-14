@@ -184,30 +184,7 @@ let appData = {
         periodAmount.textContent = periodSelect.value;
     },
     reset: function () {
-        document.querySelectorAll('input').forEach(function (item) {
-            item.value = '';
-        });
-        periodSelect.value = 1;
-        periodAmount.textContent = '1';
-
-        document.querySelectorAll('.income-items').forEach(function (item, index) {
-            if(index > 0) {
-                item.remove();
-            }
-        });
-
-        document.querySelectorAll('.expenses-items').forEach(function (item, index) {
-            if(index > 0) {
-                item.remove();
-            }
-        });
-
-        cancelBtn.style.display = 'none';
-        for(let i=0; i< document.querySelectorAll('.data input[type="text"]').length; i++) {
-            document.querySelectorAll('.data input[type="text"]')[i].removeAttribute('disabled');
-        }
-        start.style.display = 'block';
-        start.setAttribute('style', 'opacity: .3; pointer-events: none;');
+        window.location.reload();
     }
 };
 
