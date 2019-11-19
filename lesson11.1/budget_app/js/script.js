@@ -1,6 +1,6 @@
 'use strict';
 
-let start = document.getElementById('start'),
+const start = document.getElementById('start'),
     cancelBtn = document.getElementById('cancel'),
     btnPlus = document.getElementsByTagName('button'),
     incomePlus = btnPlus[0],
@@ -13,21 +13,18 @@ let start = document.getElementById('start'),
     budgetDayValue = document.getElementsByClassName('budget_day-value')[0],
     budgetMonthValue = document.getElementsByClassName('budget_month-value')[0],
     expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0],
-    accumulatedMonthValue = document.getElementsByClassName('accumulated_month-value')[0],
     additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
     additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
     incomePeriodValue = document.getElementsByClassName('income_period-value')[0],
     targetMonthValue = document.getElementsByClassName('target_month-value')[0],
     salaryAmount = document.querySelector('.salary-amount'),
-    incomeTitle = document.querySelector('.income-title'),
-    incomeItems = document.querySelectorAll('.income-items'),
-    expensesTitle = document.querySelectorAll('.expenses-title'),
-    expensesItems = document.querySelectorAll('.expenses-items'),
-    additionalExpenses = document.querySelector('.additional_expenses'),
     periodSelect = document.querySelector('.period-select'),
     periodAmount = document.querySelector('.period-amount'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount');
+
+let incomeItems = document.querySelectorAll('.income-items'),
+    expensesItems = document.querySelectorAll('.expenses-items');
 
 const AppData = function () {
     this.budget = 0;
@@ -43,7 +40,6 @@ const AppData = function () {
     this.percentDeposit = 0;
     this.moneyDeposit = 0;
 };
-
 
 AppData.prototype.start = function () {
     this.budget = +salaryAmount.value;
@@ -61,6 +57,7 @@ AppData.prototype.start = function () {
     }
     cancelBtn.style.display = 'block';
 };
+
 AppData.prototype.addBlock = function (type) {
     let cloneItems = document.querySelectorAll(`.${type}-items`);
     const btnElem = document.querySelectorAll(`.${type}_add`);
@@ -70,6 +67,11 @@ AppData.prototype.addBlock = function (type) {
     cloneItem.getElementsByClassName(`${type}-amount`)[0].value = '';
     cloneItems[0].parentNode.insertBefore(cloneItem, btnElem[0]);
     cloneItems = document.querySelectorAll(`.${type}-items`);
+    if(type === 'expenses') {
+        expensesItems = document.querySelectorAll(`.${type}-items`);
+    } else {
+        incomeItems = document.querySelectorAll(`.${type}-items`);
+    }
 
     if(cloneItems.length === 3) {
         btnElem[0].style.display = 'none';
